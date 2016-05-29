@@ -12,8 +12,13 @@ A project to get you started build web applications with Meteor!
 This is coming soon.  If you would like me to do this sooner rather than later just [let me know!](mailto:kyle@kylerader.ninja?subject=Write Meteor React Starter Getting Started Please!)
 
 ### Deploying to your own server.
+1. Setup a server.  I recommend [Digital Ocean](https://www.digitalocean.com/)
+2. Install & Secure Nginx with SSL using Let's Encrypt!
+    * [Setting up let's Encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04)
+    * [Setting up Nginx as Reverse Proxy](https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-for-apache) - This is for proxying to Apache, but you can pass to `localhost:YOUR_METEOR_PORT`.
+    * [Nginx Strong SSL](https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html)
 
-MupX settings: `/prod-mup.json`. [Meteor UpX Reference](https://github.com/arunoda/meteor-up/blob/mupx/README.md)
+3. Setup MupX (note the deploy-* scripts in the repo): This file should be added to your root.  It is in the `.gitignore`. `/prod-mup.json`. [Meteor UpX Reference](https://github.com/arunoda/meteor-up/blob/mupx/README.md)
 ```
 {
   // Server authentication info
