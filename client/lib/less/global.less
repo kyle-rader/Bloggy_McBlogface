@@ -1,0 +1,87 @@
+html, body, div#react-root, div.app-root {
+    height: 100%;
+    position: relative;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.custom-bg {
+    @media screen and (min-width: 900px) {
+        background-size: cover;
+        background-attachment: fixed;
+        background-position-x: 50%;
+        min-height: 100%;
+
+        &.map {
+            background-image: url("img/map.jpeg");
+        }
+
+        &.map2 {
+            background-image: url("img/map2.jpeg");
+        }
+
+        &.ocean {
+            background-image: url("img/ocean2.jpeg");
+        }
+
+        &.water {
+            background-image: url("img/water.jpeg");
+        }
+
+        &.alaska {
+            background-image: url("img/alaska.jpeg");
+        }
+
+        &.bridge {
+            background-image: url("img/bridge.jpeg");
+        }
+
+        &.clouds {
+            background-image: url("img/clouds.jpg");
+        }
+
+        &.red-square {
+            background-image: url("img/red-square.jpg");
+        }
+
+        &.road {
+            background-image: url("img/road.jpg");
+        }
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+
+@wwu-green:  #BAD80A;
+@wwu-blue: #003f87;
+
+.wwu-btn {
+    background-color: @wwu-green !important;
+    color: @wwu-blue !important;
+
+    &:hover {
+        background-color: darken(@wwu-green, 5%) !important;
+    }
+}
+
+.wwu-blue {
+    color: @wwu-blue !important;
+}
+
+.wwu-dark-blue {
+    color: @wwu-blue !important;
+}
+
+.facebook-blue {
+    color: #304d8a !important;
+}
