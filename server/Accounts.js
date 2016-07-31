@@ -1,5 +1,3 @@
-import { Meteor } from 'meteor/meteor';
-
 // Setup Email Verification
 Accounts.emailTemplates.siteName = Meteor.settings.siteName;
 Accounts.emailTemplates.from = Meteor.settings.accounts.fromEmail;
@@ -52,11 +50,11 @@ Accounts.onCreateUser((options, user) => {
     // Assign all other properties from the options
     user = _.extend(user, {
         profile: {
-            firstname: options.firstname,
-            lastname: options.lastname,
-            displayname: options.displayname,
+            firstName: options.profile.firstName,
+            lastName: options.profile.lastName,
+            displayName: `${options.profile.firstName.slice(0,1).toUpperCase()}${options.profile.firstName.slice(1).toLowerCase()} ${options.profile.lastName.slice(0,1).toUpperCase()}${options.profile.lastName.slice(1).toLowerCase()}`,
         },
-        roles: ['user']
+        roles: ['user'],
     });
 
     return user;
