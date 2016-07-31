@@ -20,12 +20,12 @@ publicRoutes.route('/login', {
     }
 });
 
-publicRoutes.route('/register', {
-    name: 'register',
-    action() {
-        mount(App, {yield: <Register />});
-    }
-});
+// publicRoutes.route('/register', {
+//     name: 'register',
+//     action() {
+//         mount(App, {yield: <Register />});
+//     }
+// });
 
 publicRoutes.route('/requestpasswordreset', {
     name: 'requestpasswordreset',

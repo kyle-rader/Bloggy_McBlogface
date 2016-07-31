@@ -31,23 +31,23 @@ AppHeader = React.createClass({
 
     getRightMenu() {
         // User is logged in
-
-        // NOTE:
-        // Below There is an example of another top header button which currently goes to Google.com
-
         if (this.data.user) {
 
             return (
             <div className="right menu">
-
-
-                <a className="ui icon item" href="https://google.com" target="_blank">
-                    <i className="large red fitted google icon"></i>
-                </a>
                 <div className="ui dropdown item" ref="profileDropdown">
-                    <i className="green user icon"></i>
-                    {this.data.user.profile.displayname}
+                    <i className="blue user icon"></i>
+                    {this.data.user.profile.displayName}
                     <div className="menu">
+                        <a className="item" href="/editor">
+                            <i className="green edit icon"></i>
+                            Editor
+                        </a>
+                        <a className="item" href="/settings">
+                            <i className="settings icon"></i>
+                            Settings
+                        </a>
+                        <div className="divider"></div>
                         <a className="item" onClick={this.logout}>
                             <i className="sign out icon"></i>
                             Logout
@@ -78,10 +78,10 @@ AppHeader = React.createClass({
         return (
         <div className="ui fixed large menu">
             <div className="ui dropdown item" ref="menuDropdown">
-                <i className="red bars icon"></i> Menu
+                <i className="gray bars icon"></i> Menu
                 <div className="menu">
                     <a className="item" href="/">
-                        <i className="teal home icon"></i>&nbsp; Home
+                        <i className="blue home icon"></i>&nbsp; Home
                     </a>
                 </div>
             </div>
