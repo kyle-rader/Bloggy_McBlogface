@@ -20,6 +20,12 @@ App = React.createClass({
         };
     },
 
+    componentDidMount() {
+        let title = document.createElement('title');
+        title.text = Meteor.settings.public.siteName;
+        document.head.appendChild(title);
+    },
+
     getView() {
         return this.data.canView() ? this.props.yield : <Login />;
     },
