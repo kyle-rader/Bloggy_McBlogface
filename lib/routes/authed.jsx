@@ -6,9 +6,16 @@ const authedRoutes = FlowRouter.group({
     name: 'authed'
 });
 
-authedRoutes.route('/profile', {
-    name: 'profile',
+authedRoutes.route('/settings', {
+    name: 'settings',
     action() {
-        mount(App, {yield: <Login />});
+        mount(App, {yield: <Settings />});
+    }
+});
+
+authedRoutes.route('/editor', {
+    name: 'editor',
+    action() {
+        mount(App, {yield: <Editor />});
     }
 });
