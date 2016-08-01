@@ -69,15 +69,14 @@ RequestPasswordReset = React.createClass({
     getForm() {
       if (!this.state.email) {
         return (
-          <form id="resetForm" className="ui huge form" ref="resetForm">
-            <div className="ui raised segment transparent-bg">
+          <form id="resetForm" className="ui large form" ref="resetForm">
+            <div className="ui raised segment">
               <h2 className="ui violet header">
                 <div className="content">
                   Request Password Reset
                 </div>
               </h2>
               <div className="field">
-                <label className="text-left">Email</label>
                 <div className="ui left icon input">
                   <i className="user icon"></i>
                   <input type="email" name="email" placeholder="your.email@gmail.com" autoComplete="off" />

@@ -119,7 +119,7 @@ Register = React.createClass({
       if (!this.state.newAccountEmail) {
         return (
           <form id="registerForm" className="ui large form" ref="registerForm">
-            <div className="ui raised segment transparent-bg">
+            <div className="ui raised segment">
               <h2 className="ui blue header">
                 <div className="content">
                   Register

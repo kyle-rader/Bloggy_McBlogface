@@ -4,14 +4,12 @@ Home = React.createClass({
 
     render() {
         return (
-        <div className="custom-bg road">
+        <div className="ui container grid">
             <br/>
-            <div className="ui container raised segment grid transparent-bg">
-                {/* Puzzle Hunt Title */}
-                <div className="row">
-                    <div className="column">
-                        <h1>Welcome to Meteor React Starter</h1>
-                    </div>
+            <div className="row">
+                <div className="text-center column">
+                    <img className="ui centered medium image" src="/img/logo-1024.png"/>
+                    <h1>{Meteor.settings.public.siteName}</h1>
                 </div>
             </div>
             <br/>

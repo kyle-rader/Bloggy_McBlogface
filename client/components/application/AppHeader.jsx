@@ -61,10 +61,6 @@ AppHeader = React.createClass({
         else {
             return (
             <div className="right menu">
-                <a className="ui item" href="/register">
-                    <i className="blue user add icon"></i>
-                    Register
-                </a>
                 <a className="ui item" href="/login">
                     <i className="green sign in icon"></i>
                     Log In

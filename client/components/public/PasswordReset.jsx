@@ -67,8 +67,8 @@ PasswordReset = React.createClass({
 
     getForm() {
         return (
-        <form id="resetForm" className="ui huge form" ref="resetForm">
-            <div className="ui raised segment transparent-bg">
+        <form id="resetForm" className="ui large form" ref="resetForm">
+            <div className="ui raised segment">
                 <h2 className="ui orange header">
                     <div className="content">
                       Choose a New Password
