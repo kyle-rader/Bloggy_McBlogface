@@ -72,7 +72,7 @@ AppHeader = React.createClass({
 
     render() {
         return (
-        <div className="ui fixed large menu">
+        <div className="ui fixed menu">
             <div className="ui dropdown item" ref="menuDropdown">
                 <i className="gray bars icon"></i> Menu
                 <div className="menu">
