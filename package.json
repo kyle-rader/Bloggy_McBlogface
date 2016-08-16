@@ -4,7 +4,7 @@
   "description": "A Puzzle Hunt Game System",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "meteor test --driver-package practicalmeteor:mocha --port 3100",
     "meteor:dev": "meteor --settings settings-development.json",
     "meteor:prod": "meteor --setting settings-production.json"
   },

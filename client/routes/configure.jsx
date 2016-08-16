@@ -1,5 +1,3 @@
-// ensure we are the client
-
 import { FlowRouter } from 'meteor/kadira:flow-router';
 
 Accounts.onLogin(() => {
