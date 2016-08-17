@@ -1,40 +1,41 @@
 // Define our main App component
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 App = React.createClass({
-    
-    mixins: [ReactMeteorData],
 
-    getMeteorData() {
-        return {
-            hasUser: !!Meteor.user(),
-            isPublic(route) {
-                let publicRoutes = ['home', 'login', 'requestpasswordreset', 'passwordreset'];
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    return {
+      user: Meteor.user(),
+      isPublic(route) {
+        let publicRoutes = ['home', 'login', 'requestpasswordreset', 'passwordreset'];
 
-                return publicRoutes.indexOf(route) > -1;
-            },
-            canView() {
-                return this.isPublic(FlowRouter.current().route.name) || !!Meteor.user();
-            }
-        };
-    },
+        return publicRoutes.indexOf(route) > -1;
+      },
+      canView() {
+        return this.isPublic(FlowRouter.current().route.name) || !!Meteor.user();
+      }
+    };
+  },
 
-    componentDidMount() {
-        let title = document.createElement('title');
-        title.text = Meteor.settings.public.siteName;
-        document.head.appendChild(title);
-    },
+  componentDidMount() {
+    document.title = Meteor.settings.public.siteName || 'Meteor Blog';
+  },
 
-    getView() {
-        return this.data.canView() ? this.props.yield : <Login />;
-    },
+  getView() {
+    return this.data.canView() ? this.props.yield : <Login />;
+  },
 
-    render() {
-        return (
-        <div className="app-root">
-            <AppHeader hasUser={this.data.hasUser} />
-            {this.getView()}
-        </div>);
-    }
+  render() {
+    return (
+    <div className="app-root pushable">
+      <Menu />
+      <div className="pusher">
+        {this.getView()}
+      </div>
+    </div>
+    );
+  }
 });
