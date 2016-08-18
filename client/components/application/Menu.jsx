@@ -33,7 +33,7 @@ Menu = React.createClass({
     return (
     <div className="ui inverted sidebar vertical labeled icon menu">
       <a className="item" href="/">
-        <i className="inverted blue home icon"></i>
+        <img className="ui centered mini image" src="/img/logo-white-128.png"/>
         Home
       </a>
     </div>

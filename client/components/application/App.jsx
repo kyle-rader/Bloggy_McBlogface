@@ -1,7 +1,6 @@
 // Define our main App component
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 App = React.createClass({
 
@@ -33,6 +32,7 @@ App = React.createClass({
     <div className="app-root pushable">
       <Menu />
       <div className="pusher">
+        <TopBar />
         {this.getView()}
       </div>
     </div>
