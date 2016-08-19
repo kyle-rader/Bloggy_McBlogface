@@ -18,6 +18,7 @@ Menu = React.createClass({
 
   _adminMenu() {
     return [
+      <div className="ui divider" key="admin-divider"></div>,
       (
       <a className="item" href="#" key="edit-btn">
         <i className="green pencil icon"></i>
@@ -26,7 +27,7 @@ Menu = React.createClass({
       ),
       (
       <a className="item" href="#" key="settings-btn">
-        <i className="blue settings icon"></i>
+        <i className="violet settings icon"></i>
         Settings
       </a>
       ),
@@ -78,8 +79,16 @@ Menu = React.createClass({
     return (
     <div className="ui inverted borderless sidebar vertical labeled icon menu">
       <a className="item" href="/">
-        <img className="ui centered mini image" src="/img/logo-white-128.png"/>
+        <img className="ui centered mini menu-logo image" src="/img/logo-white-128.png"/>
         Home
+      </a>
+      <a className="item" href="#tags">
+        <i className="blue tags icon"></i>
+        Tags
+      </a>
+      <a className="item" href="#archive">
+        <i className="teal archive icon"></i>
+        Archive
       </a>
       {adminMenu}
       <div className="ui divider"></div>
