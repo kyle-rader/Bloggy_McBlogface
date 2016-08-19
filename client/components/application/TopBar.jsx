@@ -9,7 +9,7 @@ TopBar = React.createClass({
     if (Meteor.settings.public.social && Meteor.settings.public.social[socialApp]) {
       return (
         <a className="item" href={Meteor.settings.public.social[socialApp]} target="_blank">
-          <i className={`${socialApp} ${socialApp}-color large icon`}></i>
+          <i className={`large ${socialApp} ${socialApp}-color icon`}></i>
         </a>
       );
     } else {
@@ -21,7 +21,7 @@ TopBar = React.createClass({
     return (
       <div className="ui fixed icon menu">
         <a className="item" onClick={this.toggleSidebar}>
-          <i className="content icon"></i>
+          <i className="large green content icon"></i>
         </a>
         {this.socialButton('linkedin')}
         {this.socialButton('github')}
