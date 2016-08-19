@@ -20,6 +20,20 @@ publicRoutes.route('/login', {
     }
 });
 
+publicRoutes.route('/tags', {
+    name: 'tags',
+    action() {
+        mount(App, {yield: <Tags />});
+    }
+});
+
+publicRoutes.route('/archive', {
+    name: 'archive',
+    action() {
+        mount(App, {yield: <Archive />});
+    }
+});
+
 // publicRoutes.route('/register', {
 //     name: 'register',
 //     action() {

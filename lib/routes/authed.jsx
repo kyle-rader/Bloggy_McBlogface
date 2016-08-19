@@ -16,6 +16,6 @@ authedRoutes.route('/settings', {
 authedRoutes.route('/editor', {
     name: 'editor',
     action() {
-        mount(App, {yield: <Editor />});
+        mount(App, {yield: <BlogEditor />});
     }
 });

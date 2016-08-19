@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-Settings = React.createClass({
+Archive = React.createClass({
 
     mixins:[ReactMeteorData],
     getMeteorData() {
@@ -12,9 +12,9 @@ Settings = React.createClass({
         return (
         <div className="ui container">
             <div className="ui header">
-                <i className="settings icon"></i>
+                <i className="archive icon"></i>
                 <div className="content">
-                    <h2>Settings</h2>
+                    <h2>Archive</h2>
                 </div>
             </div>
         </div>

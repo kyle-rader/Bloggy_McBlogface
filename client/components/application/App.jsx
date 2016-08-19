@@ -9,7 +9,7 @@ App = React.createClass({
     return {
       user: Meteor.user(),
       isPublic(route) {
-        let publicRoutes = ['home', 'login', 'requestpasswordreset', 'passwordreset'];
+        let publicRoutes = ['home', 'login', 'requestpasswordreset', 'passwordreset', 'tags', 'archive'];
 
         return publicRoutes.indexOf(route) > -1;
       },
