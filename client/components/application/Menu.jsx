@@ -21,7 +21,7 @@ Menu = React.createClass({
       <div className="ui divider" key="admin-divider"></div>,
       (
       <a className="item" href="/editor" key="edit-btn">
-        <i className="green pencil icon"></i>
+        <i className="green edit icon"></i>
         Editor
       </a>
       ),

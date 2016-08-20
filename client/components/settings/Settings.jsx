@@ -12,7 +12,7 @@ Settings = React.createClass({
         return (
         <div className="ui container">
             <div className="ui header">
-                <i className="settings icon"></i>
+                <i className="violet settings icon"></i>
                 <div className="content">
                     <h2>Settings</h2>
                 </div>

@@ -12,7 +12,7 @@ BlogEditor = React.createClass({
         return (
         <div className="ui container">
             <div className="ui header">
-                <i className="edit icon"></i>
+                <i className="green edit icon"></i>
                 <div className="content">
                     <h2>Editor</h2>
                 </div>

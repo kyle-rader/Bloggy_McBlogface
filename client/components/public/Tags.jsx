@@ -12,7 +12,7 @@ Tags = React.createClass({
         return (
         <div className="ui container">
             <div className="ui header">
-                <i className="tags icon"></i>
+                <i className="blue tags icon"></i>
                 <div className="content">
                     <h2>Tags</h2>
                 </div>

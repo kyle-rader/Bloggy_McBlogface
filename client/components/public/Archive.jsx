@@ -12,7 +12,7 @@ Archive = React.createClass({
         return (
         <div className="ui container">
             <div className="ui header">
-                <i className="archive icon"></i>
+                <i className="teal archive icon"></i>
                 <div className="content">
                     <h2>Archive</h2>
                 </div>
