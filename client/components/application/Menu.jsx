@@ -52,24 +52,23 @@ Menu = React.createClass({
     }
   },
 
-  componentDidMount() {
-  },
-
-  componentDidUpdate() {
+  _initSideBarMenu() {
     // Init Semantic-UI SideBar
-    const reactRoot = $('#react-root > .app-root.pushable');
+    const reactRoot = $('.app-root.ui.pushable');
     const sideBar = reactRoot.find('> .ui.sidebar');
 
     sideBar.sidebar({
       context: reactRoot[0]
-    });
+    })
+    .sidebar('attach events', 'a.item');
+  },
 
-    // Close Menu on item click.
-    let items = sideBar.find('a.item');
+  componentDidMount() {
+    this._initSideBarMenu();
+  },
 
-    items.on('click', (elem) => {
-      sideBar.sidebar('toggle');
-    });
+  componentDidUpdate() {
+    this._initSideBarMenu();
   },
 
   render() {

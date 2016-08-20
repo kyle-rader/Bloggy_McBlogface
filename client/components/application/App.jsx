@@ -29,7 +29,7 @@ App = React.createClass({
 
   render() {
     return (
-    <div className="app-root pushable">
+    <div className="app-root ui pushable">
       <Menu />
       <div className="pusher">
         <TopBar />
