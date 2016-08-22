@@ -1,31 +1,19 @@
-// Define our main App component
+// Main App - React Root Component
 
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 
-App = React.createClass({
-
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      user: Meteor.user(),
-      isPublic(route) {
-        let publicRoutes = ['home', 'login', 'requestpasswordreset', 'passwordreset', 'tags', 'archive'];
-
-        return publicRoutes.indexOf(route) > -1;
-      },
-      canView() {
-        return this.isPublic(FlowRouter.current().route.name) || !!Meteor.user();
-      }
-    };
-  },
+App = class App extends React.Component {
 
   componentDidMount() {
     document.title = Meteor.settings.public.siteName || 'Meteor Blog';
-  },
+  }
 
   getView() {
-    return this.data.canView() ? this.props.yield : <Login />;
-  },
+    console.log(this.props);
+
+    return this.props.canView() ? this.props.yield : <Login />;
+  }
 
   render() {
     return (
@@ -38,4 +26,5 @@ App = React.createClass({
     </div>
     );
   }
-});
+
+}

@@ -9,48 +9,48 @@ const publicRoutes = FlowRouter.group({
 publicRoutes.route('/', {
     name: 'home',
     action() {
-        mount(App, {yield: <Home />});
+        mount(AppContainer, {yield: <Home />});
     }
 });
 
 publicRoutes.route('/login', {
     name: 'login',
     action() {
-        mount(App, {yield: <Login />});
+        mount(AppContainer, {yield: <Login />});
     }
 });
 
 publicRoutes.route('/tags', {
     name: 'tags',
     action() {
-        mount(App, {yield: <Tags />});
+        mount(AppContainer, {yield: <Tags />});
     }
 });
 
 publicRoutes.route('/archive', {
     name: 'archive',
     action() {
-        mount(App, {yield: <Archive />});
+        mount(AppContainer, {yield: <Archive />});
     }
 });
 
 // publicRoutes.route('/register', {
 //     name: 'register',
 //     action() {
-//         mount(App, {yield: <Register />});
+//         mount(AppContainer, {yield: <Register />});
 //     }
 // });
 
 publicRoutes.route('/requestpasswordreset', {
     name: 'requestpasswordreset',
     action() {
-        mount(App, {yield: <RequestPasswordReset />});
+        mount(AppContainer, {yield: <RequestPasswordReset />});
     }
 });
 
 publicRoutes.route('/passwordreset/:token', {
     name: 'passwordreset',
     action(params, queryParams) {
-        mount(App, {yield: <PasswordReset token={params.token}/>});
+        mount(AppContainer, {yield: <PasswordReset token={params.token}/>});
     }
 });
