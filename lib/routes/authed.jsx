@@ -9,13 +9,13 @@ const authedRoutes = FlowRouter.group({
 authedRoutes.route('/settings', {
     name: 'settings',
     action() {
-        mount(AppContainer, {yield: <Settings />});
+        mount(App, {yield: <Settings />});
     }
 });
 
 authedRoutes.route('/editor', {
     name: 'editor',
     action() {
-        mount(AppContainer, {yield: <BlogEditor />});
+        mount(App, {yield: <BlogEditor />});
     }
 });

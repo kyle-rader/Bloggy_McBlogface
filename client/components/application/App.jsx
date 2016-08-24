@@ -9,19 +9,13 @@ App = class App extends React.Component {
     document.title = Meteor.settings.public.siteName || 'Meteor Blog';
   }
 
-  getView() {
-    console.log(this.props);
-
-    return this.props.canView() ? this.props.yield : <Login />;
-  }
-
   render() {
     return (
     <div className="app-root ui pushable">
       <Menu />
       <div className="pusher">
         <TopBar />
-        {this.getView()}
+        {this.props.yield}
       </div>
     </div>
     );
