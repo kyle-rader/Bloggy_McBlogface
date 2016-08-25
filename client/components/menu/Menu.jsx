@@ -1,20 +1,17 @@
-// Application header
+/*
+ * Menu.jsx
+ * The main Sidebar Menu
+ */
 
 import React from 'react';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 
-Menu = React.createClass({
-  mixins: [ReactMeteorData],
-  getMeteorData() {
-    return {
-      user: Meteor.user(),
-      isAdmin: Meteor.user() && Meteor.user().roles && (Meteor.user().roles.indexOf('admin') > -1)
-    };
-  },
+Menu = class Menu extends React.Component {
 
   _logout(event) {
-      event.preventDefault();
-      return Meteor.logout(() => FlowRouter.go('/'));
-  },
+    event.preventDefault();
+    return Meteor.logout(() => FlowRouter.go('/'));
+  }
 
   _adminMenu() {
     return [
@@ -32,10 +29,10 @@ Menu = React.createClass({
       </a>
       ),
     ];
-  },
+  }
 
   _logInLogOutBtn() {
-    if (this.data.user) {
+    if (this.props.user) {
       return (
         <a className="item" onClick={this._logout}>
           <i className="sign out icon"></i>
@@ -50,7 +47,7 @@ Menu = React.createClass({
         </a>
       );
     }
-  },
+  }
 
   _initSideBarMenu() {
     // Init Semantic-UI SideBar
@@ -61,18 +58,18 @@ Menu = React.createClass({
       context: reactRoot[0]
     })
     .sidebar('attach events', 'a.item');
-  },
+  }
 
   componentDidMount() {
     this._initSideBarMenu();
-  },
+  }
 
   componentDidUpdate() {
     this._initSideBarMenu();
-  },
+  }
 
   render() {
-    const adminMenu = this.data.isAdmin ? this._adminMenu() : null;
+    const adminMenu = this.props.isAdmin() ? this._adminMenu() : null;
     const logInLogOutBtn = this._logInLogOutBtn();
 
     return (
@@ -95,4 +92,4 @@ Menu = React.createClass({
     </div>
     );
   }
-});
+}

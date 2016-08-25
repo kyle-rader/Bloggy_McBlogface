@@ -1,7 +1,9 @@
-// Authed Component Container
+/*
+ * AuthedComponentContainer.jsx
+ * Component for wrapping comps that require authentication
+ */
 
 import { Meteor } from 'meteor/meteor';
-import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
 
 AuthedComponentContainer = createContainer(({ params }) => {

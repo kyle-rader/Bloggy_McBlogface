@@ -12,7 +12,7 @@ App = class App extends React.Component {
   render() {
     return (
     <div className="app-root ui pushable">
-      <Menu />
+      <MenuContainer />
       <div className="pusher">
         <TopBar />
         {this.props.yield}
