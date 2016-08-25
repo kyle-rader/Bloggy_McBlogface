@@ -1,21 +1,22 @@
 import React from 'react';
 
-TopBar = React.createClass({
+TopBar = class TopBar extends React.Component {
   toggleSidebar() {
       $('.app-root > .ui.sidebar').sidebar('toggle');
-  },
+  }
 
   socialButton(socialApp) {
-    if (Meteor.settings.public.social && Meteor.settings.public.social[socialApp]) {
-      return (
-        <a className="item" href={Meteor.settings.public.social[socialApp]} target="_blank">
-          <i className={`large ${socialApp} ${socialApp}-color icon`}></i>
-        </a>
-      );
-    } else {
-      return null;
-    }
-  },
+    return (
+      <a className="item" href={Meteor.settings.public.social[socialApp]} target="_blank" key={`${socialApp}-btn`}>
+        <i className={`large ${socialApp} ${socialApp}-color icon`}></i>
+      </a>
+    );
+  }
+
+  renderSocialButtons() {
+    const socialApps = Object.keys(Meteor.settings.public.social);
+    return socialApps.map((app) => this.socialButton(app));
+  }
 
   render() {
     return (
@@ -23,11 +24,8 @@ TopBar = React.createClass({
         <a className="item" onClick={this.toggleSidebar}>
           <i className="large green content icon"></i>
         </a>
-        {this.socialButton('linkedin')}
-        {this.socialButton('github')}
-        {this.socialButton('facebook')}
-        {this.socialButton('twitter')}
+        {this.renderSocialButtons()}
       </div>
     );
   }
-})
+}
