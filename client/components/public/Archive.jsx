@@ -1,24 +1,19 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-Archive = React.createClass({
+Archive = class Archive extends React.Component {
 
-    mixins:[ReactMeteorData],
-    getMeteorData() {
-        return {};
-    },
-
-    render() {
-        return (
-        <div className="ui container">
-            <div className="ui header">
-                <i className="teal archive icon"></i>
-                <div className="content">
-                    <h2>Archive</h2>
-                </div>
-            </div>
+  render() {
+    return (
+    <div className="ui container">
+      <div className="ui header">
+        <i className="teal archive icon"></i>
+        <div className="content">
+          <h2>Archive</h2>
         </div>
-        );
-    }
+      </div>
+    </div>
+    );
+  }
 
-});
+}
