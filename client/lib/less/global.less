@@ -1,9 +1,26 @@
-html, body, div#react-root, div.app-root {
-  height: 100%;
+@import './variables.less';
+
+html,
+html > body,
+html.ios,
+html.ios > body,
+div#react-root,
+div#app-root {
   position: relative;
-  background-color: #fff;
-  color: #333;
-  padding: 0;
+  background: #fff;
+}
+
+html,
+html > body,
+html.ios,
+html.ios > body,
+div#react-root,
+div#app-root {
+  height: 100% !important;
+}
+
+div#app-root {
+    padding-top: 71px;
 }
 
 body {

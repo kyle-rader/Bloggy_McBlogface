@@ -17,10 +17,12 @@ Login = class Login extends React.Component {
   login(event) {
     event.preventDefault();
 
-    console.log(this);
+
 
     let email = $(this.refs.email).val();
     let password = $(this.refs.password).val();
+
+    console.log(email, password);
 
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
@@ -42,7 +44,7 @@ Login = class Login extends React.Component {
     return (
     <div className="login ui middle aligned center aligned grid">
       <div className="column">
-        <form className="ui large form" onSubmit={this.login.bind(this)}>
+        <form className="ui large form" onSubmit={(e) => this.login(e)}>
           <div className="ui raised segment">
             <h2 className="ui green header">
               <div className="content">
@@ -52,7 +54,7 @@ Login = class Login extends React.Component {
             <div className="field">
               <div className="ui left icon input">
                 <i className="user icon"></i>
-                <input type="email" ref="email" placeholder="your.email@address.com" autoComplete="off" defaultValue={this.state.email}/>
+                <input type="text" ref="email" placeholder="Username or Email" autoComplete="off" defaultValue={this.state.email}/>
               </div>
             </div>
             <div className="field">
