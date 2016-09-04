@@ -8,10 +8,11 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 AuthedComponentContainer = createContainer(({ params }) => {
   const { accessLevel } = params;
+  const user = Meteor.user();
   return {
-    user: Meteor.user(),
+    user,
     canView() {
-      return Meteor.user() && Meteor.user().roles.indexOf(accessLevel) > -1;
+      return user ? user.hasRole(accessLevel) : false;
     }
   };
 }, AuthedComponent);

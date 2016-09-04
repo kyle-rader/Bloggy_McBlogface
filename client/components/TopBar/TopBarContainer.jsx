@@ -2,10 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 TopBarContainer = createContainer(({ params }) => {
+  const user = Meteor.user();
   return {
-    user: Meteor.user(),
+    user,
     isAdmin() {
-      return !!Meteor.user() && Meteor.user().roles.indexOf('admin') > -1;
+      return user ? user.hasRole('admin') : false;
     }
   };
 }, TopBar);
