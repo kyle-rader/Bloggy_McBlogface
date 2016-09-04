@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import {Editor, EditorState} from 'draft-js';
+import brace from 'brace';
+import AceEditor from 'react-ace';
+import 'brace/mode/markdown';
+import 'brace/theme/monokai';
 
-BlogEditor = class BlogEditor extends React.Component {
+BlogEditor = class BlogEditor extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+
+  }
+
+  _onEditorChange(e) {
+
+  }
 
   render() {
     return (
@@ -13,6 +28,24 @@ BlogEditor = class BlogEditor extends React.Component {
           <i className="green edit icon"></i>
           <div className="content">
             <h2>Editor</h2>
+          </div>
+        </div>
+
+        <div className="ui grid">
+          <div className="four wide column">
+            <PostListSelectorContainer />
+          </div>
+          <div className="twelve wide column">
+            <div className="text-area">
+              <AceEditor
+                mode="markdown"
+                theme="monokai"
+                onChange={ (e) => this._onEditorChange(e) }
+                name="ace-editor"
+                editorProps={{$blockScrolling: true}}
+                width="100%"
+              />
+            </div>
           </div>
         </div>
       </div>
