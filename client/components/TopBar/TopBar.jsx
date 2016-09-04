@@ -36,6 +36,19 @@ TopBar = class TopBar extends React.Component {
     return Meteor.logout(() => FlowRouter.go('/'));
   }
 
+  _renderAdminMenu() {
+    if (this.props.isAdmin()) {
+      return [
+        (<div className="divider" key="admin-div"></div>),
+        (<div className="header" key="admin-header">Admin</div>),
+        (<a className="item" href="/editor" key="admin-editor"><i className="large green edit icon"></i> Editor</a>),
+        (<a className="item" href="/settings" key="admin-settings"><i className="large dark-red settings icon"></i> Settings</a>),
+      ];
+    } else {
+      return null;
+    }
+  }
+
   _initDropDownMenus() {
     $(this.refs.topbar).find('.ui.dropdown').dropdown();
   }
@@ -53,7 +66,7 @@ TopBar = class TopBar extends React.Component {
       <div className="ui fixed icon menu top-bar" ref="topbar">
 
         <div className="ui dropdown item" ref="menuDropdown">
-          <i className="large content icon"></i>
+          <i className="large green content icon"></i>
 
           <div className="menu topbar-dropdown-menu">
             <a className="item" href="/">
@@ -61,21 +74,22 @@ TopBar = class TopBar extends React.Component {
               Home
             </a>
             <a className="item" href="/archive">
-              <i className="green archive icon"></i>
+              <i className="blue archive icon"></i>
               Archive
             </a>
             <a className="item" href="/contact">
-              <i className="blue tag icon"></i>
+              <i className="red tag icon"></i>
               Tags
             </a>
             <a className="item" href="/resume">
-              <i className="violet book icon"></i>
+              <i className="orange book icon"></i>
               CV
             </a>
             <a className="item" href="/info">
-              <i className="red cubes icon"></i>
+              <i className="violet cubes icon"></i>
               Cool Stuff
             </a>
+            { this._renderAdminMenu() }
           </div>
         </div>
 

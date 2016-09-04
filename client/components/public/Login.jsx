@@ -17,12 +17,8 @@ Login = class Login extends React.Component {
   login(event) {
     event.preventDefault();
 
-
-
     let email = $(this.refs.email).val();
     let password = $(this.refs.password).val();
-
-    console.log(email, password);
 
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
