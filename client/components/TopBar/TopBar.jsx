@@ -2,17 +2,33 @@ import React from 'react';
 
 TopBar = class TopBar extends React.Component {
 
-  _socialButton(socialApp) {
+  _socialButton(link, socialApp, labeled = false) {
+
+    console.log(labeled);
+
     return (
-      <a className="item" href={Meteor.settings.public.social[socialApp]} target="_blank" key={`${socialApp}-btn`}>
+      <a className="item" href={link} target="_blank" key={`${socialApp}-btn`}>
         <i className={`large ${socialApp} ${socialApp}-color icon`}></i>
+        { labeled ? `${socialApp.slice(0,1).toUpperCase()}${socialApp.slice(1)}` : '' }
       </a>
     );
   }
 
   _renderSocialButtons() {
-    const socialApps = Object.keys(Meteor.settings.public.social);
-    return socialApps.map((app) => this._socialButton(app));
+    const appButtons = _(Meteor.settings.public.social);
+
+    if ($(window).width() < 375) {
+      return (
+      <div className="ui dropdown item">
+        <i className="large dark-blue pointing down icon"></i>
+        <div className="menu topbar-dropdown-menu">
+          { appButtons.map((link, app) => this._socialButton(link, app, true)) }
+        </div>
+      </div>
+      );
+    } else {
+      return appButtons.map((link, app) => this._socialButton(link, app, false));
+    }
   }
 
   _logInLogOutBtn() {
