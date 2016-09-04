@@ -41,7 +41,7 @@ TopBar = class TopBar extends React.Component {
     if (this.props.user) {
       return (
         <a className="item" onClick={(e) => this._logout(e)}>
-          <i className="large green power icon"></i>
+          <i className="large dark-blue glowing power icon"></i>
         </a>
       );
     } else {
