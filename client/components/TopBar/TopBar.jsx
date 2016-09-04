@@ -2,10 +2,16 @@ import React from 'react';
 
 TopBar = class TopBar extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = { isMobile: $(window).width() < 375 };
+  }
+
+  _updateScreenSize() {
+    this.setState({ isMobile: $(window).width() < 375 });
+  }
+
   _socialButton(link, socialApp, labeled = false) {
-
-    console.log(labeled);
-
     return (
       <a className="item" href={link} target="_blank" key={`${socialApp}-btn`}>
         <i className={`large ${socialApp} ${socialApp}-color icon`}></i>
@@ -17,7 +23,7 @@ TopBar = class TopBar extends React.Component {
   _renderSocialButtons() {
     const appButtons = _(Meteor.settings.public.social);
 
-    if ($(window).width() < 375) {
+    if (this.state.isMobile) {
       return (
       <div className="ui dropdown item">
         <i className="large dark-blue pointing down icon"></i>
@@ -71,6 +77,11 @@ TopBar = class TopBar extends React.Component {
 
   componentDidMount() {
     this._initDropDownMenus();
+    window.addEventListener('resize', () => this._updateScreenSize());
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => this._updateScreenSize());
   }
 
   componentDidUpdate(prevProps, prevState) {

@@ -1,12 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 
-Settings = React.createClass({
-
-  mixins:[ReactMeteorData],
-  getMeteorData() {
-    return {};
-  },
+Settings = class Settings extends Component {
 
   render() {
     return (
@@ -23,4 +18,4 @@ Settings = React.createClass({
     );
   }
 
-});
+}
