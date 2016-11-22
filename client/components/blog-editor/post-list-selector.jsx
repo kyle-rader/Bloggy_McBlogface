@@ -3,14 +3,11 @@ import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
 
-const DATE_FORMAT = 'Y-M-D H:m';
+const DATE_FORMAT = 'MMM D, YYYY';
 
 PostListSelector = class PostListSelector extends Component {
 
   constructor(props) {
-    console.log('PostList constructed.');
-    console.log(props);
-
     super(props);
 
     this.state = {
@@ -18,23 +15,11 @@ PostListSelector = class PostListSelector extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('Component did update')
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('Will receive new props', nextProps);
-
-    let activePost = this.state.activePost;
-    if (!activePost && !nextProps.loading && nextProps.posts.length > 0)
-      this.setState({ activePost: nextProps.posts[0]._id });
-  }
-
   _renderPosts() {
     return this.props.posts.map((post) => {
       const icon = post.published ? <i className="green checkmark icon"></i> : <i className="orange edit icon"></i>;
       const createdAt = moment(post.createdAt).format(DATE_FORMAT);
-      const lastUpdated = moment(post.lastUpdated).format(DATE_FORMAT);
+      const lastUpdated = moment(post.lastUpdated).fromNow();
       const className = `${this.state.activePost == post._id ? 'active' : ''} item`;
       return (
         <a className={ className } key={post._id}>
@@ -44,8 +29,8 @@ PostListSelector = class PostListSelector extends Component {
               { post.title }
             </div>
             <div className="description">
-              <span className="last-edit"><strong>Last Edit : &nbsp;</strong> { lastUpdated }</span>
-              <span className="created-at"><strong>Created  &nbsp;&nbsp;: &nbsp;</strong> { createdAt }</span>
+              <span className="last-edit"><strong>Last Edit: &nbsp;</strong><br/> { lastUpdated }</span>
+              <span className="created-at"><strong>Created: &nbsp;</strong><br/> { createdAt }</span>
             </div>
           </div>
         </a>
@@ -73,7 +58,6 @@ PostListSelector = class PostListSelector extends Component {
 };
 
 PostListSelector = createContainer(({ params }) => {
-  // const { accessLevel } = params;
 
   const postsHandle = Meteor.subscribe('posts.all');
   const loading = !postsHandle.ready();
