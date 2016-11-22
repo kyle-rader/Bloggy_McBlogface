@@ -11,9 +11,9 @@ Puzzles = class Puzzles extends React.Component {
         <Icon color="violet" name="puzzle" />
         <div className="content">
           <h2>Puzzles</h2>
-          <h3>Soon to come...</h3>
         </div>
       </div>
+      <h3>Soon to come...</h3>
     </div>
     );
   }

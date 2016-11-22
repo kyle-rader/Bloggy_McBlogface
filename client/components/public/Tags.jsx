@@ -13,6 +13,8 @@ Tags = class Tags extends React.Component {
           <h2>Tags</h2>
         </div>
       </div>
+
+      <h3>Soon to come...</h3>
     </div>
     );
   }
