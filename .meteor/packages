@@ -35,3 +35,4 @@ practicalmeteor:mocha
 shell-server@0.2.1
 perak:markdown
 aldeed:simple-schema
+aldeed:collection2

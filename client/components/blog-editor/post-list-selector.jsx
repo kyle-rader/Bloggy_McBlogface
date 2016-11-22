@@ -75,12 +75,14 @@ PostListSelector = class PostListSelector extends Component {
 PostListSelector = createContainer(({ params }) => {
   // const { accessLevel } = params;
 
-  const postsHandle = Meteor.subscribe('posts.editor.list');
+  const postsHandle = Meteor.subscribe('posts.all');
   const loading = !postsHandle.ready();
 
   const options = {
     fields: {
+      author: 1,
       title: 1,
+      body: 1,
       createdAt: 1,
       lastUpdated: 1,
       published: 1,
