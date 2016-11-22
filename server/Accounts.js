@@ -45,15 +45,12 @@ Accounts.validateLoginAttempt((attempt) => {
 
 // Extending Account Creation
 Accounts.onCreateUser((options, user) => {
-    user.profile = options.profile || {};
 
     // Assign all other properties from the options
     user = _.extend(user, {
-        profile: {
-            firstName: options.firstname,
-            lastName: options.lastname,
-            displayName: `${options.firstname.slice(0,1).toUpperCase()}${options.firstname.slice(1).toLowerCase()} ${options.lastname.slice(0,1).toUpperCase()}${options.lastname.slice(1).toLowerCase()}`,
-        },
+        firstName: options.firstname,
+        lastName: options.lastname,
+        displayName: `${options.firstname.slice(0,1).toUpperCase()}${options.firstname.slice(1).toLowerCase()} ${options.lastname.slice(0,1).toUpperCase()}${options.lastname.slice(1).toLowerCase()}`,
         roles: ['user'],
     });
 

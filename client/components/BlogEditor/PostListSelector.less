@@ -1,0 +1,26 @@
+@import '../../lib/less/variables.less';
+
+.ui.vertical.list.post-list {
+  a.item {
+    padding: 10px;
+
+    &:hover {
+      background: @selectedWhite;
+      border-right: 1px solid @midWhite;
+    }
+
+    &.active {
+      background: @selectedWhite;
+      border-right: 2px solid @offBlack;
+    }
+
+    .last-edit {
+      margin-top: 10px;
+    }
+    .last-edit,
+    .created-at {
+      font-size: .8em;
+      display: block;
+    }
+  }
+}

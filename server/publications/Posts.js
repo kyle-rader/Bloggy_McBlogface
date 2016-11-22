@@ -10,6 +10,7 @@ Meteor.publish('posts.editor.list', function() {
   const options = {
     fields: {
       title: 1,
+      createdAt: 1,
       lastUpdated: 1,
       published: 1,
     },
