@@ -1,12 +1,18 @@
-/*
- * AuthedComponentContainer.jsx
- * Component for wrapping comps that require authentication
- */
-
 import { Meteor } from 'meteor/meteor';
+import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
-AuthedComponentContainer = createContainer(({ params }) => {
+Authed = class Authed extends React.Component {
+  render() {
+    if (this.props.canView()) {
+      return this.props.children;
+    } else {
+      return <Login />;
+    }
+  }
+};
+
+Authed = createContainer(({ params }) => {
   const { accessLevel } = params;
   const user = Meteor.user();
   return {
@@ -15,4 +21,4 @@ AuthedComponentContainer = createContainer(({ params }) => {
       return user ? user.hasRole(accessLevel) : false;
     }
   };
-}, AuthedComponent);
+}, Authed);

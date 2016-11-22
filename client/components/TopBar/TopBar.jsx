@@ -1,4 +1,7 @@
 import React from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+import { browserHistory, Link } from 'react-router';
+import { Icon } from 'semantic-ui-react';
 
 TopBar = class TopBar extends React.Component {
 
@@ -14,7 +17,7 @@ TopBar = class TopBar extends React.Component {
   _socialButton(link, socialApp, labeled = false) {
     return (
       <a className="item" href={link} target="_blank" key={`${socialApp}-btn`}>
-        <i className={`large ${socialApp} ${socialApp}-color icon`}></i>
+        <Icon className={`large ${socialApp}-color`} name={socialApp}/>
         { labeled ? `${socialApp.slice(0,1).toUpperCase()}${socialApp.slice(1)}` : '' }
       </a>
     );
@@ -26,7 +29,7 @@ TopBar = class TopBar extends React.Component {
     if (this.state.isMobile) {
       return (
       <div className="ui dropdown item">
-        <i className="large dark-blue pointing down icon"></i>
+        <Icon className="large dark-blue pointing down icon"></Icon>
         <div className="menu topbar-dropdown-menu">
           { appButtons.map((link, app) => this._socialButton(link, app, true)) }
         </div>
@@ -41,21 +44,21 @@ TopBar = class TopBar extends React.Component {
     if (this.props.user) {
       return (
         <a className="item" onClick={(e) => this._logout(e)}>
-          <i className="large green power icon"></i>
+          <Icon className="large green power icon"></Icon>
         </a>
       );
     } else {
       return (
-        <a className="item" href="/login">
-          <i className="large gray power icon"></i>
-        </a>
+        <Link className="item" to="/login">
+          <Icon className="large gray power icon"></Icon>
+        </Link>
       );
     }
   }
 
   _logout(event) {
     event.preventDefault();
-    return Meteor.logout(() => FlowRouter.go('/'));
+    return Meteor.logout(() => browserHistory.push('/'));
   }
 
   _renderAdminMenu() {
@@ -63,8 +66,8 @@ TopBar = class TopBar extends React.Component {
       return [
         (<div className="divider" key="admin-div"></div>),
         (<div className="header" key="admin-header">Admin</div>),
-        (<a className="item" href="/editor" key="admin-editor"><i className="large green edit icon"></i> Editor</a>),
-        (<a className="item" href="/settings" key="admin-settings"><i className="large dark-red settings icon"></i> Settings</a>),
+        (<Link className="item" to="/editor" key="admin-editor"><Icon className="large green edit icon"></Icon> Editor</Link>),
+        (<Link className="item" to="/settings" key="admin-settings"><Icon className="large dark-red settings icon"></Icon> Settings</Link>),
       ];
     } else {
       return null;
@@ -93,29 +96,33 @@ TopBar = class TopBar extends React.Component {
       <div className="ui fixed icon menu top-bar" ref="topbar">
 
         <div className="ui dropdown item" ref="menuDropdown">
-          <i className="large green content icon"></i>
+          <Icon className="large" color="green" name="content"></Icon>
 
           <div className="menu topbar-dropdown-menu">
-            <a className="item" href="/">
+            <Link className="item" to="/">
               <img className="ui iamage" src="/img/logo-512.png"/>
               Home
-            </a>
-            <a className="item" href="/archive">
-              <i className="blue archive icon"></i>
+            </Link>
+            <Link className="item" to="/archive">
+              <Icon color="red" name="archive"></Icon>
               Archive
-            </a>
-            <a className="item" href="/contact">
-              <i className="red tag icon"></i>
+            </Link>
+            <Link className="item" to="/tags">
+              <Icon color="orange" name="tag"></Icon>
               Tags
-            </a>
-            <a className="item" href="/resume">
-              <i className="orange book icon"></i>
-              CV
-            </a>
-            <a className="item" href="/info">
-              <i className="violet cubes icon"></i>
+            </Link>
+            <Link className="item" to="/puzzles">
+              <Icon color="violet" name="puzzle"></Icon>
+              Puzzles
+            </Link>
+            <Link className="item" to="/coolstuff">
+              <Icon color="blue" name="cubes"></Icon>
               Cool Stuff
-            </a>
+            </Link>
+            <Link className="item" to="/resume">
+              <Icon color="green"  name="book"></Icon>
+              CV
+            </Link>
             { this._renderAdminMenu() }
           </div>
         </div>
@@ -128,4 +135,14 @@ TopBar = class TopBar extends React.Component {
       </div>
     );
   }
-}
+};
+
+TopBar = createContainer(({ params }) => {
+  const user = Meteor.user();
+  return {
+    user,
+    isAdmin() {
+      return user ? user.hasRole('admin') : false;
+    }
+  };
+}, TopBar);

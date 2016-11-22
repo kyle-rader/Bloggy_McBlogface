@@ -22,7 +22,7 @@ BlogEditor = class BlogEditor extends Component {
 
   render() {
     return (
-    <AuthedComponentContainer params={{accessLevel: "admin"}}>
+    <Authed params={{accessLevel: "admin"}}>
       <div className="ui container">
         <div className="ui header">
           <i className="green edit icon"></i>
@@ -33,7 +33,7 @@ BlogEditor = class BlogEditor extends Component {
 
         <div className="ui grid">
           <div className="four wide column">
-            <PostListSelectorContainer />
+            <PostListSelector />
           </div>
           <div className="twelve wide column">
             <div className="text-area">
@@ -49,7 +49,7 @@ BlogEditor = class BlogEditor extends Component {
           </div>
         </div>
       </div>
-    </AuthedComponentContainer>
+    </Authed>
     );
   }
 }

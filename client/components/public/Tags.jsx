@@ -1,24 +1,19 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Icon } from 'semantic-ui-react';
 
-Tags = React.createClass({
+Tags = class Tags extends React.Component {
 
-    mixins:[ReactMeteorData],
-    getMeteorData() {
-        return {};
-    },
-
-    render() {
-        return (
-        <div className="ui container">
-            <div className="ui header">
-                <i className="blue tags icon"></i>
-                <div className="content">
-                    <h2>Tags</h2>
-                </div>
-            </div>
+  render() {
+    return (
+    <div className="ui container">
+      <div className="ui header">
+        <Icon color="orange" name="tag"></Icon>
+        <div className="content">
+          <h2>Tags</h2>
         </div>
-        );
-    }
-
-});
+      </div>
+    </div>
+    );
+  }
+};
