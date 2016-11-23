@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Link } from 'react-router';
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
@@ -9,10 +10,6 @@ PostListSelector = class PostListSelector extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      activePost: props.activePost || null,
-    };
   }
 
   _renderPosts() {
@@ -20,9 +17,9 @@ PostListSelector = class PostListSelector extends Component {
       const icon = post.published ? <i className="green checkmark icon"></i> : <i className="orange edit icon"></i>;
       const createdAt = moment(post.createdAt).format(DATE_FORMAT);
       const lastUpdated = moment(post.lastUpdated).fromNow();
-      const className = `${this.state.activePost == post._id ? 'active' : ''} item`;
+      const className = `${this.props.activePost == post._id ? 'active' : ''} item`;
       return (
-        <a className={ className } key={post._id}>
+        <Link to={`/editor/${post._id}`} className={ className } key={post._id}>
           { icon }
           <div className="content">
             <div className="header">
@@ -33,7 +30,7 @@ PostListSelector = class PostListSelector extends Component {
               <span className="created-at"><strong>Created: &nbsp;</strong><br/> { createdAt }</span>
             </div>
           </div>
-        </a>
+        </Link>
       );
     });
   }

@@ -22,7 +22,8 @@ export const renderRoutes = () => (
 
       {/* Admin Routes */}
       <Route path="settings" component={Settings} />
-      <Route path="editor" component={BlogEditor} />
+
+      <Route path="editor(/:postId)" component={BlogEditor}/>
 
       <Route path="*" component={Home}/>
     </Route>
