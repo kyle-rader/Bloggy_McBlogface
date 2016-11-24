@@ -13,12 +13,18 @@ BlogEditor = class BlogEditor extends Component {
   render() {
     const { params: { postId } } = this.props;
 
-    const postEditor = postId ?
-      <PostEditor postId={postId} /> :
-      (<Message info>
-        <Message.Header>No post is selected.</Message.Header>
-        <p>Make a new one or select one on the left!</p>
-      </Message>);
+    let postEditor = null;
+    if (postId) {
+      postEditor = <PostEditor postId={postId} />;
+    }
+    else {
+      postEditor = (
+        <Message info>
+          <Message.Header>No post is selected.</Message.Header>
+          <p>Make a new one or select one on the left!</p>
+        </Message>
+      );
+    }
 
     return (
     <Authed params={{accessLevel: "admin"}}>
