@@ -46,11 +46,10 @@ Post = class Post extends React.Component {
 
     return (
     <div className="post">
-      <Header size="huge">
+      <Header size="huge" textAlign='center'>
         <Header.Content>{title}</Header.Content>
         <Header.Subheader as="small">
-          <strong>Last Update:</strong> {this.state.lastUpdated}<br/>
-          <strong>Created: </strong> {this.state.createdAt}
+          <strong>Created: </strong> {this.state.createdAt} &nbsp;|&nbsp;<strong>Last Update:</strong> {this.state.lastUpdated}
         </Header.Subheader>
       </Header>
       <div dangerouslySetInnerHTML={{__html: bodyRendered}} />

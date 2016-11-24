@@ -1,11 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
-import { nonEmptyString } from '../../lib/imports/helpers.js';
+import { requireAdmin, isAdmin, nonEmptyString } from '../../lib/imports/helpers.js';
+
+const LIMIT = 3;
 
 Meteor.publish('posts.all', function() {
-  const user = Meteor.users.findOne(this.userId);
-  if (!user) {
+
+  if (!isAdmin()) {
     return [];
   }
 
@@ -23,6 +25,27 @@ Meteor.publish('posts.all', function() {
   };
 
   return Posts.find({ author: this.userId }, options);
+
+});
+
+Meteor.publish('posts.public', function(page) {
+
+  check(page, Number);
+
+  const options = {
+    fields: {
+      title: 1,
+      body: 1,
+      createdAt: 1,
+      lastUpdated: 1,
+      tags: 1,
+    },
+    sort: { createdAt: -1 },
+    skip: (page - 1) * LIMIT,
+    limit: LIMIT,
+  };
+
+  return Posts.find({ published: true }, options);
 
 });
 
