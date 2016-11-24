@@ -1,11 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import React, { Component } from 'react';
-
-import brace from 'brace';
-import AceEditor from 'react-ace';
-import 'brace/mode/markdown';
-import 'brace/theme/monokai';
+import { Message, Icon } from 'semantic-ui-react';
 
 BlogEditor = class BlogEditor extends Component {
 
@@ -16,6 +12,13 @@ BlogEditor = class BlogEditor extends Component {
 
   render() {
     const { params: { postId } } = this.props;
+
+    const postEditor = postId ?
+      <PostEditor postId={postId} /> :
+      (<Message info>
+        <Message.Header>No post is selected.</Message.Header>
+        <p>Make a new one or select one on the left!</p>
+      </Message>);
 
     return (
     <Authed params={{accessLevel: "admin"}}>
@@ -33,7 +36,7 @@ BlogEditor = class BlogEditor extends Component {
           </div>
 
           <div className="twelve wide column">
-            <PostEditor postId={postId} />
+            {postEditor}
           </div>
         </div>
       </div>

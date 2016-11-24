@@ -61,9 +61,7 @@ PostListSelector = createContainer(({ params }) => {
 
   const options = {
     fields: {
-      author: 1,
       title: 1,
-      body: 1,
       createdAt: 1,
       lastUpdated: 1,
       published: 1,
