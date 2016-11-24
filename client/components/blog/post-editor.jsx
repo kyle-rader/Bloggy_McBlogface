@@ -9,6 +9,7 @@ import {
   Icon,
   Form,
   Confirm,
+  Radio,
   Loader,
   Segment,
   Dimmer,
@@ -24,11 +25,16 @@ import 'brace/theme/monokai';
 PostEditor = class PostEditor extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    const state = {
       confirmDelete: false,
-      title: props.post ? props.post.title : '',
-      body: props.post ? props.post.body : '',
     };
+    if (props.post) {
+      state.title = props.post.title;
+      state.body = props.post.body;
+      state.published = props.post.published;
+    }
+
+    this.state = state;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,25 +42,27 @@ PostEditor = class PostEditor extends Component {
       this.setState({
         title: nextProps.post.title,
         body: nextProps.post.body,
+        published: nextProps.post.published,
       });
     }
   }
 
   _savePost(e) {
     if (e) e.preventDefault();
-    const { title, body } = this.state;
+    const { title, body, published } = this.state;
 
     Meteor.call('postUpdate', {
       _id: this.props.postId,
-      title: title,
-      body: body,
+      title,
+      body,
+      published,
     }, (err, res) => {
       if (err) {
         alert(err);
       } else {
         this.setState(
           { showSaved: true },
-          () => Meteor.setTimeout(() => this.setState({ showSaved: false }), 2000)
+          () => Meteor.setTimeout(() => this.setState({ showSaved: false }), 1000)
         );
       }
     });
@@ -98,6 +106,10 @@ PostEditor = class PostEditor extends Component {
     this.setState({ body: val });
   }
 
+  _handlePublishedChange(e, checked) {
+    this.setState({ published: checked });
+  }
+
   _renderEditForm() {
     return (
     <Form success={this.state.showSaved}>
@@ -110,6 +122,7 @@ PostEditor = class PostEditor extends Component {
           <Icon name="trash"/>
           Delete
         </Form.Button>
+        <Form.Checkbox toggle name="published" label="Published" checked={this.state.published} onChange={(e, { checked }) => this._handlePublishedChange(e, checked)} />
       </Form.Group>
       <Form.Input label="Title" name="title" placeholder="Title..." value={this.state.title} onChange={(e) => this._handleTitleChange(e)}/>
       <Form.Field>
