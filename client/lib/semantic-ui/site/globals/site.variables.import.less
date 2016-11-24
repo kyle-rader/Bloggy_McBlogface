@@ -2,7 +2,19 @@
      User Global Variables
 *******************************/
 
-@fontName          : 'Ubuntu';
+@fontName          : 'Lato';
+@headerFontName    : 'Scope One';
 @googleFontSizes   : '300,400,700,300italic,400italic,700italic';
 
 @headerFontWeight : 400;
+@fontSmoothing     : antialiased;
+
+@headerFont        : @headerFontName, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@pageFont          : @fontName, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+@googleFontName    : '@{fontName}|@{headerFontName}';
+@importGoogleFonts : true;
+@googleSubset      : 'latin';
+
+@googleProtocol    : 'https://';
+@googleFontRequest : '@{googleFontName}:@{googleFontSizes}&subset=@{googleSubset}';
