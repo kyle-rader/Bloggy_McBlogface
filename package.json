@@ -6,8 +6,9 @@
   "scripts": {
     "start": "npm run meteor:dev",
     "test": "meteor test --driver-package practicalmeteor:mocha --port 3100",
-    "meteor:dev": "meteor --settings settings-development.json || true",
-    "meteor:prod": "meteor --setting settings-production.json || true"
+    "meteor:dev": "meteor --settings settings-dev.json || true",
+    "mup:set:prod": "cp mup-prod.js mup.js && cp settings-prod.json settings.json",
+    "mup:deploy": "mup deploy --config=mup-prod.js --settings=settings-prod.json"
   },
   "repository": {
     "type": "git",
