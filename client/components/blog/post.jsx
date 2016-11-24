@@ -16,7 +16,8 @@ const markit = Markdown({
     }
 
     return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-  }
+  },
+  html: true,
 });
 
 const DATE_FORMAT = 'MMM D, YYYY';

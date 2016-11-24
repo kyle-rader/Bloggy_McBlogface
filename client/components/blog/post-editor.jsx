@@ -135,8 +135,9 @@ PostEditor = class PostEditor extends Component {
           mode="markdown"
           theme="monokai"
           width="100%"
+          height="600px"
           tabSize={2}
-          editorProps={{$blockScrolling: true}}
+          editorProps={{$blockScrolling: Infinity}}
           commands={[{
             name: "Save",
             bindKey: { win: "Ctrl-S", mac: "Command-S" },
