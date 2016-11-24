@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 import React, { Component } from 'react';
+import { Button, Icon } from 'semantic-ui-react';
 import { createContainer } from 'meteor/react-meteor-data';
 import moment from 'moment';
 
@@ -45,11 +46,20 @@ PostListSelector = class PostListSelector extends Component {
 
   render() {
     const posts = this.props.loading ? this._renderLoading() : this._renderPosts();
+    const addIcon = (
+      <Icon.Group size="large">
+        <Icon name="file" />
+        <Icon corner name="add" />
+      </Icon.Group>
+    );
 
     return (
+    <div>
+      <Button icon={addIcon} content="New Post" fluid onClick={(e) => this.props.newPost(e)} />
       <div className="ui relaxed vertical fluid list post-list">
         { posts }
       </div>
+    </div>
     );
   }
 };
