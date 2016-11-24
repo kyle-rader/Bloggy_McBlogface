@@ -11,7 +11,6 @@ import 'brace/theme/monokai';
 
 PostEditor = class PostEditor extends Component {
   constructor(props) {
-    console.log('constructor with props:', props);
     super(props);
     this.state = {
       confirmDelete: false,
