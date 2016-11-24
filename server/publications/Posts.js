@@ -50,12 +50,12 @@ Meteor.publish('posts.public', function(page) {
 });
 
 Meteor.publish('posts.one', function(postId) {
+  check(postId, nonEmptyString);
+
   const user = Meteor.users.findOne(this.userId);
   if (!user) {
-    return {};
+    return [];
   }
-
-  check(postId, nonEmptyString);
 
   const options = {
     fields: {
