@@ -10,6 +10,18 @@ BlogEditor = class BlogEditor extends Component {
     this.state = {};
   }
 
+  _newPost(e) {
+    e.preventDefault();
+
+    Meteor.call('postCreate', (err, res) => {
+      if(err) {
+        alert(err);
+      } else {
+        browserHistory.push(`/editor/${res}`);
+      }
+    });
+  }
+
   render() {
     const { params: { postId } } = this.props;
 
@@ -21,7 +33,7 @@ BlogEditor = class BlogEditor extends Component {
       postEditor = (
         <Message info>
           <Message.Header>No post is selected.</Message.Header>
-          <p>Make a new one or select one on the left!</p>
+          <p><a onClick={(e) => this._newPost(e)} href="">Make a new one</a> or select one on the left!</p>
         </Message>
       );
     }
@@ -38,7 +50,7 @@ BlogEditor = class BlogEditor extends Component {
 
         <div className="ui grid">
           <div className="four wide column">
-            <PostListSelector activePost={postId} />
+            <PostListSelector activePost={postId} newPost={this._newPost}/>
           </div>
 
           <div className="twelve wide column">
