@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Menu, Button, Icon, Form, Confirm, Loader, Segment, Dimmer } from 'semantic-ui-react';
+import { Menu, Button, Icon, Form, Confirm, Loader, Segment, Dimmer, Message } from 'semantic-ui-react';
 
 import brace from 'brace';
 import AceEditor from 'react-ace';
@@ -11,15 +11,13 @@ import 'brace/theme/monokai';
 
 PostEditor = class PostEditor extends Component {
   constructor(props) {
+    console.log('constructor with props:', props);
     super(props);
     this.state = {
       confirmDelete: false,
-      title: '',
-      body: '',
+      title: props.post ? props.post.title : '',
+      body: props.post ? props.post.body : '',
     };
-
-    this._handleTitleChange = this._handleTitleChange.bind(this);
-    this._handleBodyChange = this._handleBodyChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,21 +29,37 @@ PostEditor = class PostEditor extends Component {
     }
   }
 
-  _savePost(e) {
+  _savePost(e, val) {
     e.preventDefault();
-    console.log(`Saving Post: ${this.props.post._id}`);
+    Meteor.call('postUpdate', {
+      _id: this.props.postId,
+      title: val.title,
+      body: val.body,
+    }, (err, res) => {
+      if (err) {
+        alert(err);
+      } else {
+        this.setState(
+          { showSaved: true },
+          () => Meteor.setTimeout(() => this.setState({ showSaved: false }), 2000)
+        );
+      }
+    });
   }
 
   _openConfirmDelete(e) {
     e.preventDefault();
-    console.log('Openning delete confirmation');
     this.setState({ confirmDelete: true });
   }
 
   _deletePost(e) {
     e.preventDefault();
-    console.log(`Delete Post: ${this.props.post._id}`);
-    this.setState({ confirmDelete: false });
+    Meteor.call('postDelete', this.props.postId, (err, res) => {
+      if (err) {
+        alert(err);
+      }
+      browserHistory.push('/editor');
+    });
   }
 
   _renderDeleteModal() {
@@ -73,9 +87,9 @@ PostEditor = class PostEditor extends Component {
 
   _renderEditForm() {
     return (
-    <Form>
+    <Form onSubmit={(e, val) => this._savePost(e, val)} success={this.state.showSaved}>
       <Form.Group>
-        <Form.Button basic color="green" onClick={(e) => this._savePost(e)}>
+        <Form.Button basic color="green" type="submit">
           <Icon name="save"/>
           Save
         </Form.Button>
@@ -84,8 +98,13 @@ PostEditor = class PostEditor extends Component {
           Delete
         </Form.Button>
       </Form.Group>
-      <Form.Input label="Title" name="title" placeholder="Title..." value={this.state.title} onChange={(e, val) => this._handleTitleChange(e, val)}/>
-      <Form.TextArea label="Body" name="body" placeholder="Body..." value={this.state.body} onChange={(e, val) => this._handleBodyChange(e, val)}/>
+      <Message
+        success
+        header='Post Saved!'
+        content="May the force be with you."
+      />
+      <Form.Input label="Title" name="title" placeholder="Title..." value={this.state.title} onChange={(e) => this._handleTitleChange(e)}/>
+      <Form.TextArea label="Body" name="body" placeholder="Body..." value={this.state.body} onChange={(e) => this._handleBodyChange(e)}/>
     </Form>
     );
   }
@@ -104,7 +123,9 @@ PostEditor = class PostEditor extends Component {
       return (
       <Segment>
         <Dimmer active>
+          <br/>
           <Loader>Loading</Loader>
+          <br/>
         </Dimmer>
       </Segment>
       );
