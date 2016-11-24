@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import React, { Component } from 'react';
-import { Message, Icon } from 'semantic-ui-react';
+import { Container, Message, Header, Icon } from 'semantic-ui-react';
 
 BlogEditor = class BlogEditor extends Component {
 
@@ -40,13 +40,13 @@ BlogEditor = class BlogEditor extends Component {
 
     return (
     <Authed params={{accessLevel: "admin"}}>
-      <div className="ui container">
-        <div className="ui header">
-          <i className="green edit icon"></i>
-          <div className="content">
+      <Container fluid className="editor-container">
+        <Header>
+          <Icon color="green" name="edit" />
+          <Header.Content>
             <h2>Editor</h2>
-          </div>
-        </div>
+          </Header.Content>
+        </Header>
 
         <div className="ui grid">
           <div className="four wide column">
@@ -57,7 +57,7 @@ BlogEditor = class BlogEditor extends Component {
             {postEditor}
           </div>
         </div>
-      </div>
+      </Container>
     </Authed>
     );
   }

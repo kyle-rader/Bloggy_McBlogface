@@ -2,7 +2,19 @@ import { Meteor } from 'meteor/meteor';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Menu, Button, Icon, Form, Confirm, Loader, Segment, Dimmer, Message } from 'semantic-ui-react';
+import {
+  Grid,
+  Menu,
+  Button,
+  Icon,
+  Form,
+  Confirm,
+  Loader,
+  Segment,
+  Dimmer,
+  Message,
+  Header,
+} from 'semantic-ui-react';
 
 import brace from 'brace';
 import AceEditor from 'react-ace';
@@ -100,22 +112,25 @@ PostEditor = class PostEditor extends Component {
         </Form.Button>
       </Form.Group>
       <Form.Input label="Title" name="title" placeholder="Title..." value={this.state.title} onChange={(e) => this._handleTitleChange(e)}/>
-      <AceEditor
-        name="body"
-        placeholder="Body..."
-        value={this.state.body}
-        onChange={(val) => this._handleBodyChange(val)}
-        mode="markdown"
-        theme="monokai"
-        width="100%"
-        tabSize={2}
-        editorProps={{$blockScrolling: true}}
-        commands={[{
-          name: "Save",
-          bindKey: { win: "Ctrl-S", mac: "Command-S" },
-          exec: () => this._savePost(),
-        }]}
-      />
+      <Form.Field>
+        <label>Post</label>
+        <AceEditor
+          name="body"
+          placeholder="Body..."
+          value={this.state.body}
+          onChange={(val) => this._handleBodyChange(val)}
+          mode="markdown"
+          theme="monokai"
+          width="100%"
+          tabSize={2}
+          editorProps={{$blockScrolling: true}}
+          commands={[{
+            name: "Save",
+            bindKey: { win: "Ctrl-S", mac: "Command-S" },
+            exec: () => this._savePost(),
+          }]}
+        />
+      </Form.Field>
       <Message
         success
         header='Post Saved!'
@@ -126,25 +141,37 @@ PostEditor = class PostEditor extends Component {
   }
 
   _renderMain() {
+    const { post } = this.props;
     return (
     <div>
-      {this._renderEditForm()}
+      <Grid stackable columns={2}>
+        <Grid.Column>
+          {this._renderEditForm()}
+        </Grid.Column>
+        <Grid.Column>
+          <Post title={post.title} body={post.body} createdAt={post.createdAt} lastUpdated={post.lastUpdated} />
+        </Grid.Column>
+      </Grid>
       {this._renderDeleteModal()}
     </div>
     );
   }
 
+  _renderLoading() {
+    return (
+    <Segment>
+      <Dimmer active>
+        <br/><br/>
+        <Loader>Loading</Loader>
+        <br/><br/>
+      </Dimmer>
+    </Segment>
+    );
+  }
+
   render() {
     if (this.props.loading) {
-      return (
-      <Segment>
-        <Dimmer active>
-          <br/>
-          <Loader>Loading</Loader>
-          <br/>
-        </Dimmer>
-      </Segment>
-      );
+      return this._renderLoading();
     } else {
       return this._renderMain();
     }
