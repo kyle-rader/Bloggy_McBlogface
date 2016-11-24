@@ -28,12 +28,14 @@ PostEditor = class PostEditor extends Component {
     }
   }
 
-  _savePost(e, val) {
-    e.preventDefault();
+  _savePost(e) {
+    if (e) e.preventDefault();
+    const { title, body } = this.state;
+
     Meteor.call('postUpdate', {
       _id: this.props.postId,
-      title: val.title,
-      body: val.body,
+      title: title,
+      body: body,
     }, (err, res) => {
       if (err) {
         alert(err);
@@ -80,15 +82,15 @@ PostEditor = class PostEditor extends Component {
     this.setState({ title: e.target.value });
   }
 
-  _handleBodyChange(e) {
-    this.setState({ body: e.target.value });
+  _handleBodyChange(val) {
+    this.setState({ body: val });
   }
 
   _renderEditForm() {
     return (
-    <Form onSubmit={(e, val) => this._savePost(e, val)} success={this.state.showSaved}>
+    <Form success={this.state.showSaved}>
       <Form.Group>
-        <Form.Button basic color="green" type="submit">
+        <Form.Button basic color="green" onClick={(e) => this._savePost(e)}>
           <Icon name="save"/>
           Save
         </Form.Button>
@@ -97,13 +99,28 @@ PostEditor = class PostEditor extends Component {
           Delete
         </Form.Button>
       </Form.Group>
+      <Form.Input label="Title" name="title" placeholder="Title..." value={this.state.title} onChange={(e) => this._handleTitleChange(e)}/>
+      <AceEditor
+        name="body"
+        placeholder="Body..."
+        value={this.state.body}
+        onChange={(val) => this._handleBodyChange(val)}
+        mode="markdown"
+        theme="monokai"
+        width="100%"
+        tabSize={2}
+        editorProps={{$blockScrolling: true}}
+        commands={[{
+          name: "Save",
+          bindKey: { win: "Ctrl-S", mac: "Command-S" },
+          exec: () => this._savePost(),
+        }]}
+      />
       <Message
         success
         header='Post Saved!'
         content="May the force be with you."
       />
-      <Form.Input label="Title" name="title" placeholder="Title..." value={this.state.title} onChange={(e) => this._handleTitleChange(e)}/>
-      <Form.TextArea label="Body" name="body" placeholder="Body..." value={this.state.body} onChange={(e) => this._handleBodyChange(e)}/>
     </Form>
     );
   }
