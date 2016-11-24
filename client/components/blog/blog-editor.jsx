@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import React, { Component } from 'react';
-import { Container, Message, Header, Icon } from 'semantic-ui-react';
+import { Container, Message, Header, Icon, Grid } from 'semantic-ui-react';
 
 BlogEditor = class BlogEditor extends Component {
 
@@ -48,15 +48,15 @@ BlogEditor = class BlogEditor extends Component {
           </Header.Content>
         </Header>
 
-        <div className="ui grid">
-          <div className="four wide column">
+        <Grid>
+          <Grid.Column mobile={16} tablet={6} computer={3} widescreen={2}>
             <PostListSelector activePost={postId} newPost={this._newPost}/>
-          </div>
+          </Grid.Column>
 
-          <div className="twelve wide column">
+          <Grid.Column mobile={16} tablet={10} computer={13} widescreen={14}>
             {postEditor}
-          </div>
-        </div>
+          </Grid.Column>
+        </Grid>
       </Container>
     </Authed>
     );
