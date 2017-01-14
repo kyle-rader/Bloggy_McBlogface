@@ -17,17 +17,20 @@ import {
   Header,
 } from 'semantic-ui-react';
 
+import { debounce } from 'lodash';
 import brace from 'brace';
 import AceEditor from 'react-ace';
 import 'brace/mode/markdown';
 import 'brace/theme/monokai';
 
 PostEditor = class PostEditor extends Component {
+
   constructor(props) {
     super(props);
     const state = {
       confirmDelete: false,
     };
+
     if (props.post) {
       state.title = props.post.title;
       state.body = props.post.body;
@@ -35,6 +38,8 @@ PostEditor = class PostEditor extends Component {
     }
 
     this.state = state;
+
+    this.updateBody = debounce((value) => this.setState({ body: value }), 200);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,67 +52,34 @@ PostEditor = class PostEditor extends Component {
     }
   }
 
-  _savePost(e) {
-    if (e) e.preventDefault();
-    const { title, body, published } = this.state;
-
-    Meteor.call('postUpdate', {
-      _id: this.props.postId,
-      title,
-      body,
-      published,
-    }, (err, res) => {
-      if (err) {
-        alert(err);
-      } else {
-        this.setState(
-          { showSaved: true },
-          () => Meteor.setTimeout(() => this.setState({ showSaved: false }), 1000)
-        );
-      }
-    });
+  render() {
+    if (this.props.loading) {
+      return <Loading />;
+    } else {
+      return this._renderMain();
+    }
   }
 
-  _openConfirmDelete(e) {
-    e.preventDefault();
-    this.setState({ confirmDelete: true });
-  }
-
-  _deletePost(e) {
-    e.preventDefault();
-    Meteor.call('postDelete', this.props.postId, (err, res) => {
-      if (err) {
-        alert(err);
-      }
-      browserHistory.push('/editor');
-    });
-  }
-
-  _renderDeleteModal() {
+  _renderMain() {
+    const { post } = this.props;
+    const { title, body } = this.state;
     return (
-      <Confirm
-        cancelButton='Nope! Nope! Nope!'
-        confirmButton='Make it so!'
-        content='You are about to delete this post'
-        header='Are you sure?'
-        onCancel={(e) => this.setState({ confirmDelete: false })}
-        onConfirm={(e) => this._deletePost(e)}
-        open={this.state.confirmDelete}
-      >
-      </Confirm>
+    <div>
+      <Grid stackable columns='2'>
+        <Grid.Column mobile='16' computer='10'>
+          {this._renderEditForm()}
+        </Grid.Column>
+        <Grid.Column mobile='16' computer='6'>
+          <Grid centered>
+            <Grid.Column mobile='16' widescreen='12'>
+              <Post title={title} body={body} createdAt={post.createdAt} lastUpdated={post.lastUpdated} />
+            </Grid.Column>
+          </Grid>
+        </Grid.Column>
+      </Grid>
+      {this._renderDeleteModal()}
+    </div>
     );
-  }
-
-  _handleTitleChange(e) {
-    this.setState({ title: e.target.value });
-  }
-
-  _handleBodyChange(val) {
-    this.setState({ body: val });
-  }
-
-  _handlePublishedChange(e, checked) {
-    this.setState({ published: checked });
   }
 
   _renderEditForm() {
@@ -131,7 +103,7 @@ PostEditor = class PostEditor extends Component {
           name="body"
           placeholder="Body..."
           value={this.state.body}
-          onChange={(val) => this._handleBodyChange(val)}
+          onChange={this.updateBody}
           mode="markdown"
           theme="monokai"
           width="100%"
@@ -154,45 +126,67 @@ PostEditor = class PostEditor extends Component {
     );
   }
 
-  _renderMain() {
-    const { post } = this.props;
+  _renderDeleteModal() {
     return (
-    <div>
-      <Grid stackable columns='2'>
-        <Grid.Column mobile='16' computer='10'>
-          {this._renderEditForm()}
-        </Grid.Column>
-        <Grid.Column mobile='16' computer='6'>
-          <Grid centered>
-            <Grid.Column mobile='16' widescreen='12'>
-              <Post title={post.title} body={post.body} createdAt={post.createdAt} lastUpdated={post.lastUpdated} />
-            </Grid.Column>
-          </Grid>
-        </Grid.Column>
-      </Grid>
-      {this._renderDeleteModal()}
-    </div>
+      <Confirm
+        cancelButton='Nope! Nope! Nope!'
+        confirmButton='Make it so!'
+        content='You are about to delete this post'
+        header='Are you sure?'
+        onCancel={(e) => this.setState({ confirmDelete: false })}
+        onConfirm={(e) => this._deletePost(e)}
+        open={this.state.confirmDelete}
+      >
+      </Confirm>
     );
   }
 
-  _renderLoading() {
-    return (
-    <Segment>
-      <Dimmer active>
-        <br/><br/>
-        <Loader>Loading</Loader>
-        <br/><br/>
-      </Dimmer>
-    </Segment>
-    );
+  _savePost(e) {
+    if (e) e.preventDefault();
+    this._callSave();
   }
 
-  render() {
-    if (this.props.loading) {
-      return this._renderLoading();
-    } else {
-      return this._renderMain();
-    }
+  _callSave() {
+    const { title, body, published } = this.state;
+    Meteor.call('postUpdate', {
+      _id: this.props.postId,
+      title,
+      body,
+      published,
+    }, (err, res) => {
+      if (err) {
+        alert(err);
+      } else {
+        this.setState(
+          { showSaved: true },
+          () => Meteor.setTimeout(() => this.setState({ showSaved: false }), 1000)
+        );
+      }
+    });
+  }
+
+  _openConfirmDelete(e) {
+    e.preventDefault();
+    this.setState({ confirmDelete: true });
+  }
+
+  _handlePublishedChange(e, checked) {
+    this.setState({ published: checked });
+    Meteor.setTimeout(() => this._callSave(), 100);
+  }
+
+  _handleTitleChange(e) {
+    this.setState({ title: e.target.value });
+  }
+
+  _deletePost(e) {
+    e.preventDefault();
+    Meteor.call('postDelete', this.props.postId, (err, res) => {
+      if (err) {
+        alert(err);
+      }
+      browserHistory.push('/editor');
+    });
   }
 
 };

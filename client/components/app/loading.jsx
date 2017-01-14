@@ -1,6 +1,6 @@
 import React from 'react';
 
-LoadingSegment = class LoadingSegment extends React.Component {
+Loading = class Loading extends React.Component {
 render() {
   return (
     <div className="ui segment">
