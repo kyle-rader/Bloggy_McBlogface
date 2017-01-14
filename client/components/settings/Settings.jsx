@@ -5,7 +5,7 @@ Settings = class Settings extends Component {
 
   render() {
     return (
-    <Authed params={{accessLevel: "admin"}}>
+    <Authed accessLevel='admin'>
       <div className="ui container">
         <div className="ui header">
           <i className="violet settings icon"></i>

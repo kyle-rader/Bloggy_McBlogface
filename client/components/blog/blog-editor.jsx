@@ -39,7 +39,7 @@ BlogEditor = class BlogEditor extends Component {
     }
 
     return (
-    <Authed params={{accessLevel: "admin"}}>
+    <Authed accessLevel='admin'>
       <Container fluid className="editor-container">
         <Header>
           <Icon color="green" name="edit" />

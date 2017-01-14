@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import hljs from 'highlight.js';
 import Markdown from 'markdown-it';
+
 const markit = Markdown({
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
@@ -46,10 +47,10 @@ Post = class Post extends React.Component {
 
     return (
     <div className="post">
-      <Header size="huge" textAlign='center'>
+      <Header>
         <Header.Content>{title}</Header.Content>
         <Header.Subheader as="small">
-          <strong>Created: </strong> {this.state.createdAt} &nbsp;|&nbsp;<strong>Last Update:</strong> {this.state.lastUpdated}
+          <strong>Created: </strong> {this.state.createdAt} &nbsp;&nbsp;<strong>Updated:</strong> {this.state.lastUpdated}
         </Header.Subheader>
       </Header>
       <div dangerouslySetInnerHTML={{__html: bodyRendered}} />

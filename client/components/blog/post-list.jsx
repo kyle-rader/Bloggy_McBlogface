@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { List } from 'semantic-ui-react';
+import { Grid, List } from 'semantic-ui-react';
 
 PostList = class PostList extends React.Component {
   constructor(props) {
@@ -28,9 +28,15 @@ PostList = class PostList extends React.Component {
     }
 
     return (
-    <List relaxed='very'>
-      {this._renderPosts()}
-    </List>
+      <Grid>
+        <Grid.Row centered columns='1'>
+          <Grid.Column mobile='14' tablet='12' computer='10' widescreen='10' largeScreen='10'>
+            <List relaxed='very'>
+              {this._renderPosts()}
+            </List>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 };

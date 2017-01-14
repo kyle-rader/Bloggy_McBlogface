@@ -158,12 +158,16 @@ PostEditor = class PostEditor extends Component {
     const { post } = this.props;
     return (
     <div>
-      <Grid stackable columns={2}>
-        <Grid.Column mobile={16} tablet={16} computer={8}>
+      <Grid stackable columns='2'>
+        <Grid.Column mobile='16' computer='10'>
           {this._renderEditForm()}
         </Grid.Column>
-        <Grid.Column mobile={16} tablet={16} computer={8}>
-          <Post title={post.title} body={post.body} createdAt={post.createdAt} lastUpdated={post.lastUpdated} />
+        <Grid.Column mobile='16' computer='6'>
+          <Grid centered>
+            <Grid.Column mobile='16' widescreen='12'>
+              <Post title={post.title} body={post.body} createdAt={post.createdAt} lastUpdated={post.lastUpdated} />
+            </Grid.Column>
+          </Grid>
         </Grid.Column>
       </Grid>
       {this._renderDeleteModal()}

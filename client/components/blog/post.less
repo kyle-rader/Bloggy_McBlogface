@@ -6,14 +6,26 @@ div.post {
   font-size: 1.2em;
 
   .ui.header {
+    font-family: 'Lato' !important;
+    color: #333 !important;
     padding-bottom: 20px;
-    font-size: 2.5em;
+    font-size: 2em;
+    line-height: 1.2em;
 
     small.sub.header {
       font-family: 'Lato' !important;
-      color: @grey;
+      color: @grey !important;
       font-weight: 300;
       font-size: .35em;
+      padding-top: 10px;
+    }
+  }
+
+  ul {
+    line-height: 1.4em;
+
+    li + li {
+      padding-top: 10px;
     }
   }
 }
