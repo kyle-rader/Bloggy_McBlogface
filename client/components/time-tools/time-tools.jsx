@@ -56,7 +56,7 @@ TimeTools = class TimeTools extends Component {
         </Grid>
 
         <Grid doubling >
-          <Grid.Row columns='6'>
+          <Grid.Row columns={window.screen.width < 450 ? '2' : '6' }>
             <Grid.Column><Button basic content='Set Now' icon='clock' labelPosition='right' onClick={ () => this.setState({ now: m() }) }/></Grid.Column>
             <Grid.Column><Button basic content='Begin Hour' icon='clock' labelPosition='right' onClick={ () => this._startOf('hour') }/></Grid.Column>
             <Grid.Column><Button basic content='Begin Day' icon='clock' labelPosition='right' onClick={ () => this._startOf('day') }/></Grid.Column>
@@ -64,7 +64,7 @@ TimeTools = class TimeTools extends Component {
             <Grid.Column><Button basic content='Begin Month' icon='clock' labelPosition='right' onClick={ () => this._startOf('month') }/></Grid.Column>
             <Grid.Column><Button basic content='Begin Year' icon='clock' labelPosition='right' onClick={ () => this._startOf('year') }/></Grid.Column>
           </Grid.Row>
-          <Grid.Row columns='5' width='equal'>
+          <Grid.Row columns={window.screen.width < 450 ? '2' : '5' } width='equal'>
             { this._renderAddTimeColumns() }
           </Grid.Row>
         </Grid>
