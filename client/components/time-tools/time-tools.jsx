@@ -64,7 +64,7 @@ TimeTools = class TimeTools extends Component {
             <Grid.Column><Button basic content='Begin Month' icon='clock' labelPosition='right' onClick={ () => this._startOf('month') }/></Grid.Column>
             <Grid.Column><Button basic content='Begin Year' icon='clock' labelPosition='right' onClick={ () => this._startOf('year') }/></Grid.Column>
           </Grid.Row>
-          <Grid.Row columns={window.screen.width < 450 ? '2' : '5' } width='equal'>
+          <Grid.Row columns={window.screen.width < 450 ? '2' : '6' } width='equal'>
             { this._renderAddTimeColumns() }
           </Grid.Row>
         </Grid>
@@ -104,12 +104,12 @@ TimeTools = class TimeTools extends Component {
   }
 
   _renderAddTimeColumns() {
-    const units = { minute: 15, day: 1, week: 1, month: 1, year: 1 };
+    const units = { minute: 15, hour: 1, day: 1, week: 1, month: 1, year: 1 };
     return map(units, (amount, unit) => (
       <Grid.Column key={ unit }>
-        <label>{ `${unit.slice(0,1).toUpperCase()}${unit.slice(1)} (${amount})` }</label><br/>
         <Button.Group size='tiny'>
           <Button basic color='red' icon='minus' onClick={() => this._addTime({ [unit]: -amount }) }/>
+          <Button basic content={ `${unit.slice(0,1).toUpperCase()}${unit.slice(1)} (${amount})` }/>
           <Button basic color='green' icon='plus' onClick={() => this._addTime({ [unit]: amount }) }/>
         </Button.Group>
       </Grid.Column>
