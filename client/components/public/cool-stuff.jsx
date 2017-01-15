@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Icon, List } from 'semantic-ui-react';
+import { Container, Icon, List } from 'semantic-ui-react';
 
 CoolStuff = class CoolStuff extends React.Component {
 
@@ -36,7 +36,7 @@ CoolStuff = class CoolStuff extends React.Component {
 
   render() {
     return (
-    <div className="ui container">
+    <Container>
       <div className="ui header">
         <Icon color="blue" name="cubes" />
         <div className="content">
@@ -47,7 +47,7 @@ CoolStuff = class CoolStuff extends React.Component {
       <List relaxed="very">
         {this._renderItems()}
       </List>
-    </div>
+    </Container>
     );
   }
 };

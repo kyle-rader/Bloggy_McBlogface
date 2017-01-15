@@ -111,9 +111,9 @@ TopBar = class TopBar extends React.Component {
               <Icon color="orange" name="tag"></Icon>
               Tags
             </Link>
-            <Link className="item" to="/puzzles">
-              <Icon color="violet" name="puzzle"></Icon>
-              Puzzles
+            <Link className="item" to="/timetools">
+              <Icon color="violet" name="clock"></Icon>
+              Time Tools
             </Link>
             <Link className="item" to="/coolstuff">
               <Icon color="blue" name="cubes"></Icon>

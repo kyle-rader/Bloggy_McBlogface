@@ -8,11 +8,12 @@ export const renderRoutes = () => (
 
       {/* Public Routes */}
       <IndexRoute component={Home}/>
-      <Route path="tags" component={Tags}/>
-      <Route path="archive" component={Archive}/>
-      <Route path="puzzles" component={Puzzles}/>
-      <Route path="resume" component={Resume}/>
-      <Route path="coolstuff" component={CoolStuff}/>
+      <Route path='tags' component={Tags}/>
+      <Route path='archive' component={Archive}/>
+      <Route path='puzzles' component={Puzzles}/>
+      <Route path='resume' component={Resume}/>
+      <Route path='coolstuff' component={CoolStuff}/>
+      <Route path='timetools' component={TimeTools}/>
 
       {/* Authentication Routes */}
       <Route path="login" component={Login}/>
