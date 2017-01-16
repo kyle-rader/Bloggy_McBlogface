@@ -17,6 +17,7 @@ TimeTools = class TimeTools extends Component {
     this.state = {
       now: m(),
       format: 'format12',
+      smallScreen: window.innerWidth < 980,
     };
   }
 
@@ -56,15 +57,10 @@ TimeTools = class TimeTools extends Component {
         </Grid>
 
         <Grid doubling >
-          <Grid.Row columns={window.screen.width < 450 ? '2' : '6' }>
-            <Grid.Column><Button basic content='Set Now' icon='clock' labelPosition='right' onClick={ () => this.setState({ now: m() }) }/></Grid.Column>
-            <Grid.Column><Button basic content='Begin Hour' icon='clock' labelPosition='right' onClick={ () => this._startOf('hour') }/></Grid.Column>
-            <Grid.Column><Button basic content='Begin Day' icon='clock' labelPosition='right' onClick={ () => this._startOf('day') }/></Grid.Column>
-            <Grid.Column><Button basic content='Begin Week' icon='clock' labelPosition='right' onClick={ () => this._startOf('week') }/></Grid.Column>
-            <Grid.Column><Button basic content='Begin Month' icon='clock' labelPosition='right' onClick={ () => this._startOf('month') }/></Grid.Column>
-            <Grid.Column><Button basic content='Begin Year' icon='clock' labelPosition='right' onClick={ () => this._startOf('year') }/></Grid.Column>
+          <Grid.Row columns={this.state.smallScreen ? '2' : '6' }>
+            { this._renderSetTimeButtons() }
           </Grid.Row>
-          <Grid.Row columns={window.screen.width < 450 ? '2' : '6' } width='equal'>
+          <Grid.Row columns={this.state.smallScreen ? '2' : '6' } width='equal'>
             { this._renderAddTimeColumns() }
           </Grid.Row>
         </Grid>
@@ -79,6 +75,18 @@ TimeTools = class TimeTools extends Component {
 
       </Container>
     );
+  }
+
+  _renderSetTimeButtons() {
+    const buttons = [
+      { text: 'Set Now', onClick: () => this.setState({ now: m() }) },
+      { text: 'Begin Hour', onClick: () => this._startOf('hour') },
+      { text: 'Begin Day', onClick: () => this._startOf('day') },
+      { text: 'Begin Week', onClick: () => this._startOf('week') },
+      { text: 'Begin Month', onClick: () => this._startOf('month') },
+      { text: 'Begin Year', onClick: () => this._startOf('year') },
+    ];
+    return buttons.map((btn) => <Grid.Column key={ btn.text }><Button basic fluid={ this.state.smallScreen } content={ btn.text } icon='clock' labelPosition='right' onClick={ btn.onClick }/></Grid.Column>);
   }
 
   _parseNewTime(e) {
@@ -107,9 +115,9 @@ TimeTools = class TimeTools extends Component {
     const units = { minute: 15, hour: 1, day: 1, week: 1, month: 1, year: 1 };
     return map(units, (amount, unit) => (
       <Grid.Column key={ unit }>
-        <Button.Group size='tiny'>
+        <Button.Group fluid={ this.state.smallScreen } size='tiny' widths='3'>
           <Button basic color='red' icon='minus' onClick={() => this._addTime({ [unit]: -amount }) }/>
-          <Button basic content={ `${unit.slice(0,1).toUpperCase()}${unit.slice(1)} (${amount})` }/>
+          <Button basic content={ `${unit.slice(0,1).toUpperCase()}${unit.slice(1)}` }/>
           <Button basic color='green' icon='plus' onClick={() => this._addTime({ [unit]: amount }) }/>
         </Button.Group>
       </Grid.Column>
